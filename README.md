@@ -46,3 +46,6 @@ UPNCTIX operates fundamentally as an end-to-end ticketing simulation engine desi
 ├── style.css              # Core application styling stylesheet
 ├── script.js              # Application logic and interaction handling
 └── README.md              # Project documentation
+
+## 🌐Live Web Application
+https://annejean-7.github.io/UPNCTIX-Cinema-Ticket-Booking-App/
