@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPNCTIX Mobile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="phone-frame">
+        <div class="dynamic-island"></div>
+        
+        <div id="toast">Pembayaran Berhasil</div>
+
+        <div id="loader">
+            <div class="loader-content">
+                <div class="loader-circle"></div>
+                <div class="logo-text">UPNCTIX</div>
+            </div>
+            <div class="curtain-left"></div>
+            <div class="curtain-right"></div>
+        </div>
+
+        <div id="overlay"></div>
+
+        <section id="login-page" class="page active">
+            <div class="auth-card" style="margin: auto 0; text-align: center;">
+                <div class="logo-text" style="font-size: 42px; margin-bottom: 40px; text-align: center; display: block;">UPNCTIX</div>
+                <input type="text" id="loginUsername" placeholder="Username" style="width: 100%; background-color: #140507; border: 1px solid #2a0c10; border-radius: 14px; padding: 16px; color: #ffffff; margin-bottom: 16px; outline: none;">
+                <input type="password" id="loginPassword" placeholder="Password" style="width: 100%; background-color: #140507; border: 1px solid #2a0c10; border-radius: 14px; padding: 16px; color: #ffffff; margin-bottom: 24px; outline: none;">
+                <button onclick="login()" style="width: 100%; background-color: #ffffff; color: #000000; border: none; border-radius: 14px; padding: 16px; font-size: 14px; font-weight: 700; cursor: pointer;">Masuk</button>
+                <p style="margin-top:15px;"></p>
+                <p style="text-align: center; width: 100%; font-size: 14px; color: #a0a0a0;">
+                    Belum punya akun? 
+                    <span onclick="showSignup()" style="color:#ff3344; cursor:pointer; font-weight: 600;">
+                        Daftar
+                    </span>
+                </p>
+            </div>
+        </section>
+
+        <section id="signup-page" class="page">
+            <div class="auth-card" style="margin:auto 0; text-align:center;">
+                <div class="logo-text" style="font-size:42px; margin-bottom:12px;">
+                    UPNCTIX
+                </div>
+
+                <p style="color:#a0a0a0; font-size:13px; margin-bottom:32px;">
+                    Buat akun untuk memesan tiket favoritmu 🎬
+                </p>
+
+                <input type="text" id="signupUsername" placeholder="Buat Username" style="width:100%; background:#140507; border:1px solid #2a0c10; border-radius:14px; padding:16px; color:white; margin-bottom:14px; outline:none;">
+
+                <input type="password" id="signupPassword" placeholder="Buat Password" style="width:100%; background:#140507; border:1px solid #2a0c10; border-radius:14px; padding:16px; color:white; margin-bottom:22px; outline:none;">
+
+                <button onclick="signup()" style="width:100%; background:white; color:black; border:none; border-radius:14px; padding:16px; font-size:14px; font-weight:700; cursor:pointer;">
+                    Daftar Sekarang
+                </button>
+
+                <div style="margin-top:24px; font-size:13px; color:#a0a0a0;">
+                    Sudah punya akun?
+                    <span onclick="showLogin()" style="color:#ff3344; font-weight:700; cursor:pointer;">
+                        Masuk
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section id="home-page" class="page">
+            <header>
+                <div>
+                    <div class="logo-text">UPNCTIX</div>
+                    <p id="welcome-text">Welcome Back!</p>
+                </div>
+                <button class="profile-btn" onclick="navigateToPage('account-page')">
+                    <i class="fa-regular fa-user"></i>
+                </button>
+            </header>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Cari film, genre...">
+                </div>
+                
+                <div class="filter-box">
+                    <select id="priceFilter">
+                        <option value="all">Semua</option>
+                        <option value="low">≤ 20k</option>
+                        <option value="middle">21k-25k</option>
+                        <option value="high">> 25k</option>
+                    </select>
+                </div>
+            </div>
+            <div id="movie-container"></div>
+        </section>
+
+        <section id="history-page" class="page">
+            <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 20px;">Riwayat Transaksi</h2>
+            <div id="history-container"></div>
+        </section>
+
+        <section id="account-page" class="page">
+            <div class="account-card">
+                <div class="profile-top">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h2 id="profile-name">Nika</h2>
+                    <p>Member of UPNCTIX</p>
+                </div>
+
+                <div class="profile-stats">
+                    <div>
+                        <h3 id="stat-tickets">0</h3>
+                        <span>Tiket</span>
+                    </div>
+                    <div>
+                        <h3 id="stat-transactions">0</h3>
+                        <span>Transaksi</span>
+                    </div>
+                </div>
+
+                <div class="profile-menu">
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div id="movie-detail-modal" class="modal">
+            <button class="close-btn" onclick="closeModal('movie-detail-modal')">&times;</button>
+            <div class="modal-content">
+                <img id="detailPoster" src="" alt="Poster">
+                <h3 id="detailTitle"></h3>
+                <p id="detailGenre"></p>
+                <p id="detailStudio"></p>
+                <p id="detailJam"></p>
+                <p id="detailHarga"></p>
+                <button id="detailBooking">Pesan Tiket</button>
+            </div>
+        </div>
+
+        <div id="booking-modal" class="modal">
+            <button class="close-btn" onclick="closeModal('booking-modal')">&times;</button>
+            <div class="modal-content">
+                <h3 id="booking-title" style="text-align: center; font-size: 18px; font-weight: 800;"></h3>
+                <div class="screen">SCREEN</div>
+                <div id="seat-grid"></div>
+                
+                <div class="seat-legend">
+                    <div><span class="seat available"></span> Tersedia</div>
+                    <div><span class="seat selected"></span> Dipilih</div>
+                    <div><span class="seat booked"></span> Terisi</div>
+                </div>
+
+                <div class="payment-summary">
+                    <p>Kursi: <span id="selectedSeats">-</span></p>
+                    <p>Total: <span id="totalPrice">Rp0</span></p>
+                    <button onclick="checkoutPayment()">Lanjutkan Pembayaran</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="payment-modal" class="modal">
+            <button class="close-btn" onclick="closeModal('payment-modal')">&times;</button>
+            <div class="modal-content">
+                <div class="qris-title-text">QRIS PEMBAYARAN</div>
+                <div class="qris-container">
+                    <img class="qris-image" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=UPNCTIX-PREMIUM-DUMMY-DATA" alt="QRIS Code">
+                </div>
+                <p id="qris-id"></p>
+                <button onclick="confirmPayment()">Konfirmasi Pembayaran</button>
+            </div>
+        </div>
+
+        <div id="ticket-modal" class="modal">
+            <button class="close-btn" onclick="closeModal('ticket-modal')">&times;</button>
+            <div class="modal-content">
+                <div id="mono-ticket-content" class="ticket-wrapper-mono"></div>
+                <span class="save-history-action" onclick="confirmSaveHistory()">Simpan Riwayat</span>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="navigateToPage('home-page', this)">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="navigateToPage('history-page', this)">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Riwayat</span>
+            </button>
+            <button class="nav-item" onclick="navigateToPage('account-page', this)">
+                <i class="fa-solid fa-user"></i>
+                <span>Akun</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
